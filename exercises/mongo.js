@@ -1,32 +1,41 @@
 const mongoose = require('mongoose')
 
-if (process.argv.length < 3) {
-  console.log('Please provide the password as an argument: node mongo.js <password>')
-  process.exit(1)
-}
-
 const password = process.argv[2]
+const name = process.argv[3]
+const number = process.argv[4]
 
 const url =
-  `mongodb+srv://game_project:${password}@cluster0.x5k5h.mongodb.net/note-app?retryWrites=true&w=majority`
+  `mongodb+srv://game_project:${password}@cluster0.x5k5h.mongodb.net/phonebook-app?retryWrites=true&w=majority`
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
+const contactSchema = new mongoose.Schema({
+  name: String,
+  number: String
 })
 
-const Note = mongoose.model('Note', noteSchema)
+const Contact = mongoose.model('Contact', contactSchema)
 
-const note = new Note({
-  content: 'HTML is Easy',
-  date: new Date(),
-  important: true,
+const contact = new Contact({
+  name: name,
+  number: number
 })
 
-note.save().then(result => {
-  console.log('note saved!')
-  mongoose.connection.close()
-})
+if (process.argv.length < 3) {
+  console.log('Please provide at least the password as argument: node mongo.js <password>')
+  process.exit(1)
+}
+if (process.argv.length === 3) {
+  Contact.find({}).then(result => {
+    result.forEach(contact => {
+      console.log(contact)
+    })
+    mongoose.connection.close()
+  })
+}
+if (process.argv.length > 3) {
+  contact.save().then(result => {
+    console.log(`added ${name} number ${number} to phonebook!`)
+    mongoose.connection.close()
+  })
+}
