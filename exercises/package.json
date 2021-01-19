@@ -7,11 +7,13 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "git push heroku"
+    "deploy": "git push heroku",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^7.18.0",
     "nodemon": "^2.0.6"
   },
   "dependencies": {

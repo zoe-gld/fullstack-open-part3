@@ -1,11 +1,12 @@
+const config = require('../config')
 const mongoose = require('mongoose')
 var uniqueValidator = require('mongoose-unique-validator')
 
-const url = process.env.MONGODB_URI
+const url = config.mongodb.uri
 console.log('connecting to', url)
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
-  .then(result => {
+  .then(() => {
     console.log('connected to MongoDB')
   })
   .catch((error) => {
@@ -22,7 +23,7 @@ const personSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: v => /\d{8,}$/.test(v),
-      message: props => "Phone number must have at least 8 digits."
+      message: () => 'Phone number must have at least 8 digits.'
     }
   }
 })
