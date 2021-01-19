@@ -2,7 +2,7 @@ const config = require('../config')
 const mongoose = require('mongoose')
 var uniqueValidator = require('mongoose-unique-validator')
 
-const url = config.mongodb.uri
+const url = config.MONGODB_URI
 console.log('connecting to', url)
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })

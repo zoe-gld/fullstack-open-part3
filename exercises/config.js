@@ -1,9 +1,9 @@
-const config = {}
+require('dotenv').config()
 
-config.mongodb = {}
-config.web = {}
+const PORT = process.env.PORT
+const MONGODB_URI = process.env.MONGODB_URI
 
-config.mongodb.uri = 'mongodb+srv://game_project:mongopassword@cluster0.x5k5h.mongodb.net/phonebook-app?retryWrites=true&w=majority'
-config.web.PORT = 3001
-
-module.exports = config
+module.exports = {
+  MONGODB_URI,
+  PORT
+}
